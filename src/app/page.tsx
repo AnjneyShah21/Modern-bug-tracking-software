@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   Bug,
@@ -13,18 +13,40 @@ import {
   FileCode,
   ArrowRight,
   UserCheck,
-  LayoutDashboard,
-  Layers,
   Activity,
   CheckCircle2,
-  Lock,
-  GitBranch,
   Terminal,
-  ShieldAlert,
   Cpu,
+  Layers,
 } from 'lucide-react';
 
+const MOVING_WORDS = [
+  'high-velocity teams',
+  'modern developers',
+  'QA engineers',
+  'software architects',
+  'precision teams',
+];
+
+const TICKER_ITEMS = [
+  { text: '🔥 AI Auto-Triage Co-pilot Active', highlight: 'AI-Powered' },
+  { text: '⚡ Drag & Drop Kanban Workflow', highlight: 'Linear UX' },
+  { text: '🛡️ Debounced Duplicate Auditor', highlight: 'Real-time' },
+  { text: '📝 Automated Stack Trace Formatter', highlight: 'Smart Parsing' },
+  { text: '🔍 Natural Language AI Search', highlight: 'NLP Engine' },
+  { text: '👤 Custom Job Designation Profiles', highlight: 'Role-Based' },
+];
+
 export default function LandingPage() {
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex((prev) => (prev + 1) % MOVING_WORDS.length);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-violet-500 selection:text-white overflow-x-hidden">
       {/* Background Animated Gradient Glowing Orbs */}
@@ -32,6 +54,21 @@ export default function LandingPage() {
         <div className="absolute -top-40 left-1/4 w-[600px] h-[600px] bg-violet-600/15 rounded-full blur-[140px] animate-pulse" />
         <div className="absolute top-1/3 -right-20 w-[500px] h-[500px] bg-indigo-600/10 rounded-full blur-[130px] animate-pulse" style={{ animationDuration: '6s' }} />
         <div className="absolute bottom-10 left-10 w-[450px] h-[450px] bg-purple-600/10 rounded-full blur-[120px] animate-pulse" style={{ animationDuration: '8s' }} />
+      </div>
+
+      {/* Top Moving Marquee Banner */}
+      <div className="bg-gradient-to-r from-violet-950 via-slate-950 to-indigo-950 border-b border-violet-500/20 py-2 overflow-hidden z-50">
+        <div className="animate-marquee gap-8">
+          {[...TICKER_ITEMS, ...TICKER_ITEMS].map((item, idx) => (
+            <div key={idx} className="flex items-center gap-2 text-[11px] font-mono text-slate-300 shrink-0">
+              <span className="bg-violet-500/20 text-violet-300 px-1.5 py-0.5 rounded border border-violet-500/30 uppercase font-bold text-[9px]">
+                {item.highlight}
+              </span>
+              <span>{item.text}</span>
+              <span className="text-slate-700 ml-4">•</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Navigation Header */}
@@ -66,17 +103,18 @@ export default function LandingPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative pt-24 pb-20 px-6 z-10">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-mono shadow-inner">
+      <section className="relative pt-20 pb-20 px-6 z-10">
+        <div className="max-w-5xl mx-auto text-center space-y-8">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-mono shadow-inner">
             <Sparkles className="h-3.5 w-3.5 text-violet-400 animate-spin" style={{ animationDuration: '4s' }} />
-            <span>AI-Assisted Issue Tracker & Engineering Telemetry</span>
+            <span>Next-Generation Bug Tracking Workspace</span>
           </div>
 
-          <h1 className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white leading-none">
-            The contemporary issue workspace for{' '}
-            <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent">
-              high-velocity teams
+          {/* Dynamic Changing Animated Headline */}
+          <h1 className="text-4xl sm:text-7xl font-extrabold tracking-tight text-white leading-none min-h-[140px] flex flex-col justify-center items-center">
+            <span>The issue workspace for</span>
+            <span className="bg-gradient-to-r from-violet-400 via-indigo-300 to-purple-400 bg-clip-text text-transparent transition-all duration-500 inline-block animate-pulse">
+              {MOVING_WORDS[wordIndex]}
             </span>
           </h1>
 
@@ -100,7 +138,7 @@ export default function LandingPage() {
             </Link>
           </div>
 
-          {/* Live Mock UI Banner Preview */}
+          {/* Live Interactive UI Banner Preview */}
           <div className="mt-16 rounded-2xl border border-slate-800 bg-slate-900/60 p-3 backdrop-blur-xl shadow-2xl shadow-violet-950/50 ring-1 ring-white/10 group hover:border-violet-500/30 transition-all">
             <div className="rounded-xl bg-slate-950 p-4 border border-slate-850 space-y-4 text-left">
               <div className="flex items-center justify-between pb-3 border-b border-slate-900">
@@ -118,7 +156,7 @@ export default function LandingPage() {
 
               {/* Sample Mini Kanban Column Preview */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                <div className="rounded-lg bg-slate-900/80 p-3 border border-slate-850 space-y-2">
+                <div className="rounded-lg bg-slate-900/80 p-3 border border-slate-850 space-y-2 hover:border-violet-500/40 transition-colors">
                   <div className="flex items-center justify-between text-xs font-semibold text-blue-400">
                     <span>NEW (2)</span>
                     <span className="text-[10px] bg-blue-500/10 px-1.5 py-0.5 rounded border border-blue-500/20">P0</span>
@@ -127,7 +165,7 @@ export default function LandingPage() {
                   <div className="text-[10px] text-slate-500 font-mono">Senior Lead Developer</div>
                 </div>
 
-                <div className="rounded-lg bg-slate-900/80 p-3 border border-slate-850 space-y-2">
+                <div className="rounded-lg bg-slate-900/80 p-3 border border-slate-850 space-y-2 hover:border-amber-500/40 transition-colors">
                   <div className="flex items-center justify-between text-xs font-semibold text-amber-400">
                     <span>IN_PROGRESS (1)</span>
                     <span className="text-[10px] bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/20">P1</span>
@@ -136,7 +174,7 @@ export default function LandingPage() {
                   <div className="text-[10px] text-slate-500 font-mono">QA Engineer</div>
                 </div>
 
-                <div className="rounded-lg bg-slate-900/80 p-3 border border-slate-850 space-y-2">
+                <div className="rounded-lg bg-slate-900/80 p-3 border border-slate-850 space-y-2 hover:border-emerald-500/40 transition-colors">
                   <div className="flex items-center justify-between text-xs font-semibold text-emerald-400">
                     <span>RESOLVED (5)</span>
                     <span className="text-[10px] bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Fixed</span>
