@@ -15,7 +15,7 @@ function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [designation, setDesignation] = useState('');
-  
+
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -53,7 +53,7 @@ function LoginForm() {
         }
 
         setSuccess('Account created successfully! Logging you in...');
-        
+
         const loginRes = await signIn('credentials', {
           email,
           password,
@@ -119,18 +119,16 @@ function LoginForm() {
           <button
             type="button"
             onClick={() => { setIsRegistering(false); setError(null); }}
-            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${
-              !isRegistering ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${!isRegistering ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+              }`}
           >
             Sign In
           </button>
           <button
             type="button"
             onClick={() => { setIsRegistering(true); setError(null); }}
-            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${
-              isRegistering ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
-            }`}
+            className={`flex-1 py-1.5 text-xs font-semibold rounded-md transition-all ${isRegistering ? 'bg-violet-600 text-white shadow-sm' : 'text-slate-400 hover:text-slate-200'
+              }`}
           >
             Create Account
           </button>

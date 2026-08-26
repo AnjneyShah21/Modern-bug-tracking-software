@@ -203,11 +203,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-150 ${
-                    isActive
+                  className={`flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold transition-all duration-150 ${isActive
                       ? 'bg-violet-600/15 text-violet-400 border border-violet-500/20 shadow-sm shadow-violet-500/5'
                       : 'text-slate-400 hover:bg-slate-900 hover:text-slate-200 border border-transparent'
-                  }`}
+                    }`}
                 >
                   <Icon className={`h-4.5 w-4.5 ${isActive ? 'text-violet-400' : 'text-slate-450'}`} />
                   <span>{link.label}</span>
@@ -276,11 +275,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             <div className="relative" ref={notifRef}>
               <button
                 onClick={() => setShowNotifications(!showNotifications)}
-                className={`relative p-2 rounded-lg transition-colors border ${
-                  showNotifications
+                className={`relative p-2 rounded-lg transition-colors border ${showNotifications
                     ? 'bg-slate-900 border-slate-800 text-violet-400'
                     : 'border-transparent text-slate-400 hover:bg-slate-900 hover:text-slate-200'
-                }`}
+                  }`}
               >
                 <Bell className="h-5 w-5" />
                 {unreadCount > 0 && (
@@ -320,11 +318,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                             router.push(`/bugs/${n.bugId}`);
                             setShowNotifications(false);
                           }}
-                          className={`p-2.5 rounded-lg border text-left transition-colors cursor-pointer ${
-                            n.read
+                          className={`p-2.5 rounded-lg border text-left transition-colors cursor-pointer ${n.read
                               ? 'bg-slate-950/20 border-transparent hover:bg-slate-900/60'
                               : 'bg-violet-950/10 border-violet-900/20 hover:bg-violet-950/20'
-                          }`}
+                            }`}
                         >
                           <p className={`text-xs ${n.read ? 'text-slate-400' : 'text-slate-200 font-semibold'}`}>
                             {n.message}
