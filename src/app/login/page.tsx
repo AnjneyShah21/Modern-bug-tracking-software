@@ -75,11 +75,11 @@ export default function LoginPage() {
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-tr from-violet-600 to-indigo-600 shadow-lg shadow-violet-500/20">
             <Bug className="h-7 w-7 text-white" />
           </div>
-          <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white">
-            Bugzilla <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">Reimagined</span>
-          </h2>
-          <p className="mt-2 text-sm text-slate-400">
-            A contemporary issue workspace for high-velocity teams
+          <h1 className="mt-6 text-3xl font-extrabold tracking-tight text-white">
+            Bugzilla Reimagined
+          </h1>
+          <p className="mt-2 text-sm text-slate-400 max-w-sm">
+            Bugzilla Reimagined is an issue tracking and bug reporting workspace for software engineering teams to manage defects, track task lifecycles, and streamline team collaboration.
           </p>
         </div>
 
