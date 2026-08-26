@@ -26,6 +26,7 @@ async function main() {
       email: 'admin@bugzilla.com',
       passwordHash,
       role: Role.ADMIN,
+      designation: 'Engineering Director',
     },
   });
 
@@ -36,6 +37,7 @@ async function main() {
       email: 'dev@bugzilla.com',
       passwordHash,
       role: Role.DEVELOPER,
+      designation: 'Senior Full Stack Engineer',
     },
   });
 

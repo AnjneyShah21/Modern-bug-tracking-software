@@ -233,7 +233,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             )}
             <div className="min-w-0 flex-1">
               <p className="text-xs font-semibold text-white truncate leading-none">{currentUser?.name}</p>
-              <p className="text-[10px] text-slate-500 font-mono truncate mt-0.5 uppercase tracking-wider">{currentUser?.role}</p>
+              <p className="text-[10px] text-violet-400 font-medium truncate mt-0.5">{currentUser?.designation || 'Team Member'}</p>
+              <p className="text-[9px] text-slate-500 font-mono truncate uppercase tracking-wider">{currentUser?.role}</p>
             </div>
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
