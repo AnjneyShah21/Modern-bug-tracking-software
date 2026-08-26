@@ -1,101 +1,109 @@
 # Bugzilla Reimagined
 
-A contemporary, high-fidelity reimagining of the classic Bugzilla issue tracking workspace. Built as a modern developer tool (inspired by Linear and GitHub Issues caliber UX) with full-stack capabilities, role-based workflows, in-app notifications, and advanced AI integrations.
+A contemporary, high-fidelity issue tracking workspace built for modern engineering teams. Inspired by Linear and GitHub Issues UX with full-stack capabilities, role-based workflows, in-app notifications, Kanban boards, and advanced AI integrations.
 
 ---
 
-## 🚀 Tech Stack
+## 📖 User Guide: How to Use the Application
 
-- **Frontend**: React + Next.js (App Router, Route Groups, Server Actions), TypeScript, Tailwind CSS (v4)
+### 1. 🔐 Logging In
+Access the app using either of the default clean accounts (Password: **`password123`**):
+- **System Admin**: `admin@bugzilla.com`
+- **Lead Developer**: `dev@bugzilla.com`
+
+---
+
+### 2. ➕ How to File a New Bug / Issue
+1. Click the **"+ File New Bug"** button in the sidebar navigation or header.
+2. Fill out the core fields:
+   - **Title**: A concise title describing the defect.
+   - **Project & Component**: Select the affected workspace and module.
+   - **Description**: Detailed description of the problem.
+   - **Steps to Reproduce**: Step-by-step instructions to trigger the bug.
+   - **Expected vs Actual Behavior**: Clear statements of what should happen vs what actually happened.
+3. *(Optional)* **AI Tools**:
+   - **Format Raw Logs**: Click **"Format Raw Log / Email"** to paste raw stack traces or terminal output. Click **"AI Format"** to automatically parse it into clean steps and behavior fields.
+   - **AI Auto-Triage**: Click **"AI Auto-Triage"** to let the AI suggest the optimal *Severity*, *Priority*, *Component*, and *Assignee*.
+   - **Duplicate Warning**: As you type your title and description, the real-time AI auditor will alert you if a similar bug already exists.
+4. Click **"Submit Bug Report"**.
+
+---
+
+### 3. 📊 Managing Bugs & Workflow Transitions
+- **Kanban Board**: Navigate to **Kanban** to visually drag and drop bugs across columns: `NEW` ➔ `TRIAGED` ➔ `IN_PROGRESS` ➔ `IN_REVIEW` ➔ `RESOLVED` ➔ `CLOSED`.
+- **All Bugs Explorer**: View, sort, filter, or search bugs by severity, status, component, or assignee.
+- **Natural Language AI Search**: Use the header search bar to ask in plain English (e.g., *"show open critical bugs assigned to me"*).
+
+---
+
+### 4. 💬 Comments, Attachments & History
+On any bug's detail page (`/bugs/[id]`):
+- **Change Status / Assignee**: Use the metadata sidebar to reassign or change state.
+- **Add Comments**: Post updates or upload files/screenshots.
+- **AI Discussion Summary**: Click **"AI Summarize Thread"** to generate a quick bulleted summary of long discussion threads.
+- **Audit Logs**: View an immutable log of every field change, timestamp, and user action.
+
+---
+
+## 🛠️ Developer Setup & Deployment Guide
+
+### Tech Stack
+- **Frontend**: Next.js (App Router, Server Actions), TypeScript, Tailwind CSS (v4)
 - **Backend**: Node.js Route Handlers (Next.js API Routes)
-- **Database**: PostgreSQL with Prisma ORM (relational mapping, self-linked bug dependencies)
-- **Auth**: Credentials-based session authentication with NextAuth.js
-- **Icons & Styling**: Lucide React + Tailwind CSS
-- **Visualization**: Recharts (status & severity distributions)
-- **AI Integrations**: Native fetch wrapper supporting Anthropic Claude (Sonnet 3.5) & OpenAI (GPT-4o) with a rules-based local mockup fallback when offline or without keys.
+- **Database**: PostgreSQL with Prisma ORM
+- **Auth**: Session-based credentials authentication with NextAuth.js
+- **AI Integrations**: Native API fetch wrappers for Anthropic Claude (Sonnet) & OpenAI (GPT-4o) with intelligent rules fallback.
 
 ---
 
-## ⚡ Standout AI-Powered Features
+### Step-by-Step Setup
 
-1. **AI Triage Co-pilot**: When creating a bug, a single click prompts the LLM to inspect the description, check historical resolvers for that project area, and recommend the best severity, priority, component, and assignee.
-2. **Semantic Duplicate Auditor**: A debounced checker runs in the background as you draft your bug title and description, warning you live with a similarity matching score and link if you are about to file a duplicate ticket.
-3. **Raw Log / Stack Trace Formatter**: A dedicated formatting area where you paste raw console outputs, core dumps, or messy emails, and an "AI Format" button restructures them instantly into clean *Steps to Reproduce*, *Expected*, and *Actual Behavior* fields.
-4. **AI Natural-Language Search**: A search bar in the header that takes queries like *"show me all critical bugs in project Acme assigned to me that are still open"* and calls the LLM to resolve pronouns ("me"), component names, and priorities into structured Prisma filters.
-5. **AI Discussion Summarizer**: A one-click summarizer inside bug threads that condenses long back-and-forth comment streams into a status bullet list and current blockers.
-
----
-
-## 📁 Directory Structure
-
-```
-bugzilla-project/
-├── prisma/
-│   ├── schema.prisma       # Database relations, self-linking dependency models
-│   └── seed.ts             # High-quality seeding script (Sarah, Alex, Jane, Stripe outages)
-├── public/
-│   └── uploads/            # Local file storage for stack traces/screenshots
-├── src/
-│   ├── app/                # App Router Layouts
-│   │   ├── api/            # API Route Handlers (Bugs CRUD, Comments, Uploads, AI actions)
-│   │   ├── (dashboard)/    # Authenticated section group
-│   │   │   ├── page.tsx    # Dashboard (recharts statistics, counters, live activity logs)
-│   │   │   ├── layout.tsx  # Core shell (sidebar, AI search header, in-app notifications)
-│   │   │   ├── kanban/     # Native HTML5 drag-and-drop workflow board
-│   │   │   └── bugs/       # Explorer table (shortcuts, search filters, detail tabs)
-│   │   ├── login/          # Dark login workspace
-│   │   └── layout.tsx      # Main wrapper & session providers
-│   ├── components/         # Providers and custom wrappers
-│   └── lib/                # Shared utilities (prisma client, AI wrappers)
-```
-
----
-
-## 🛠️ Step-by-Step Setup Instructions
-
-### 1. Database Setup (Render or PostgreSQL)
-1. If you are using a **Render.com** PostgreSQL database, create a new PostgreSQL database in your Render dashboard.
-2. Copy the **External Database URL** (e.g. `postgresql://user:password@host:port/dbname?sslmode=require`).
-3. Open the `.env` file at the root of the workspace:
-   ```env
-   DATABASE_URL="YOUR_RENDER_EXTERNAL_URL"
-   ```
-4. If you prefer a local database, update `.env` with your local PostgreSQL password.
-
-### 2. AI Service Keys (Optional)
-If you want to use the live Claude/GPT endpoints, paste your key in `.env`:
-```env
-ANTHROPIC_API_KEY="sk-ant-..."
-# OR
-OPENAI_API_KEY="sk-..."
-```
-*Note: If no keys are provided, the app automatically falls back to an intelligent rules-based parsing engine so you can fully test the flows offline.*
-
-### 3. Initialize & Seed Database
-Run the following commands in your terminal to create the relational tables and populate them with the rich demo dataset:
+#### 1. Clone & Install
 ```bash
-# Push database structure
+git clone https://github.com/AnjneyShah21/Modern-bug-tracking-software.git
+cd Modern-bug-tracking-software
+npm install
+```
+
+#### 2. Configure Environment Variables (`.env`)
+Create or edit your `.env` file:
+```env
+# Render PostgreSQL or local connection string
+DATABASE_URL="postgresql://user:password@host:port/dbname?sslmode=require"
+
+# NextAuth secret & URL
+NEXTAUTH_SECRET="f6c8d76e7b1a29384756c2d1b0a7c4f5e6d7c8b9a0b1c2d3"
+NEXTAUTH_URL="http://localhost:3000"
+
+# (Optional) Anthropic Claude API Key for Live AI
+ANTHROPIC_API_KEY="sk-ant-..."
+```
+
+#### 3. Initialize & Seed Database
+```bash
+# Push database schema to PostgreSQL
 npx prisma db push
 
-# Seed the database
+# Seed initial system accounts (admin@bugzilla.com & dev@bugzilla.com)
 npx prisma db seed
 ```
 
-### 4. Run Development Server
-Start the local server:
+#### 4. Run Development Server
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open **[http://localhost:3000](http://localhost:3000)** in your browser.
 
 ---
 
-## 🔑 Demo Login Accounts
+## ☁️ Deploying on Render
 
-All accounts use the password: **`password123`**
+This repository includes a [`render.yaml`](render.yaml) blueprint for deployment on **Render**:
 
-- **Sarah Connor** (Admin): `admin@bugzilla.com`
-- **Alex Mercer** (Developer): `dev1@bugzilla.com`
-- **Elena Rostova** (Developer): `dev2@bugzilla.com`
-- **Jane Foster** (QA): `qa@bugzilla.com`
-- **John Doe** (Reporter): `reporter@bugzilla.com`
+1. Log into **[Render Dashboard](https://dashboard.render.com)**.
+2. Click **New +** -> **Blueprint**.
+3. Connect `AnjneyShah21/Modern-bug-tracking-software`.
+4. Render will automatically provision:
+   - Free **PostgreSQL Database**
+   - Free **Next.js Web Service**
+   - Execute database migration, seed, and build commands.

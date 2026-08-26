@@ -149,32 +149,20 @@ export default function LoginPage() {
         <div className="mt-8 border-t border-slate-800 pt-6">
           <div className="flex items-center justify-center gap-1.5 text-xs text-slate-400 mb-3">
             <Terminal className="h-3.5 w-3.5 text-violet-400" />
-            <span className="font-mono">Demo Accounts (Password: password123)</span>
+            <span className="font-mono">Default Logins (Password: password123)</span>
           </div>
           <div className="grid grid-cols-2 gap-2 text-center text-xs">
             <button
               onClick={() => handleQuickLogin('admin@bugzilla.com')}
               className="rounded-lg border border-slate-800 bg-slate-950/60 py-2 hover:bg-slate-850 hover:border-slate-700 text-slate-300 font-semibold"
             >
-              Sarah (Admin)
+              System Admin
             </button>
             <button
-              onClick={() => handleQuickLogin('dev1@bugzilla.com')}
+              onClick={() => handleQuickLogin('dev@bugzilla.com')}
               className="rounded-lg border border-slate-800 bg-slate-950/60 py-2 hover:bg-slate-850 hover:border-slate-700 text-slate-300 font-semibold"
             >
-              Alex (Dev)
-            </button>
-            <button
-              onClick={() => handleQuickLogin('qa@bugzilla.com')}
-              className="rounded-lg border border-slate-800 bg-slate-950/60 py-2 hover:bg-slate-850 hover:border-slate-700 text-slate-300 font-semibold"
-            >
-              Jane (QA)
-            </button>
-            <button
-              onClick={() => handleQuickLogin('reporter@bugzilla.com')}
-              className="rounded-lg border border-slate-800 bg-slate-950/60 py-2 hover:bg-slate-850 hover:border-slate-700 text-slate-300 font-semibold"
-            >
-              John (Reporter)
+              Lead Developer
             </button>
           </div>
         </div>
