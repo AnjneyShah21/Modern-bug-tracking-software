@@ -2,14 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import { signIn, useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Bug, Lock, Mail, User as UserIcon, Briefcase, AlertCircle, CheckCircle2 } from 'lucide-react';
 
 export default function LoginPage() {
   const { status } = useSession();
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  const [isRegistering, setIsRegistering] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(searchParams.get('mode') === 'register');
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -248,24 +249,6 @@ export default function LoginPage() {
             {loading ? 'Processing...' : isRegistering ? 'Create Account & Sign In' : 'Sign In'}
           </button>
         </form>
-
-        <div className="border-t border-slate-800 pt-4">
-          <p className="text-center text-xs text-slate-500 mb-2">Quick System Logins</p>
-          <div className="grid grid-cols-2 gap-2 text-center text-xs">
-            <button
-              onClick={() => handleQuickLogin('admin@bugzilla.com')}
-              className="rounded-lg border border-slate-800 bg-slate-950/60 py-1.5 hover:bg-slate-850 hover:border-slate-700 text-slate-300 font-semibold"
-            >
-              System Admin
-            </button>
-            <button
-              onClick={() => handleQuickLogin('dev@bugzilla.com')}
-              className="rounded-lg border border-slate-800 bg-slate-950/60 py-1.5 hover:bg-slate-850 hover:border-slate-700 text-slate-300 font-semibold"
-            >
-              Lead Developer
-            </button>
-          </div>
-        </div>
       </div>
     </div>
   );
