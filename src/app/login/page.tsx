@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Bug, Lock, Mail, User as UserIcon, Briefcase, AlertCircle, CheckCircle2 } from 'lucide-react';
 
-export default function LoginPage() {
+function LoginForm() {
   const { status } = useSession();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -34,7 +34,6 @@ export default function LoginPage() {
 
     try {
       if (isRegistering) {
-        // Register new user
         const res = await fetch('/api/auth/register', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -55,7 +54,6 @@ export default function LoginPage() {
 
         setSuccess('Account created successfully! Logging you in...');
         
-        // Auto sign-in after registration
         const loginRes = await signIn('credentials', {
           email,
           password,
@@ -70,7 +68,6 @@ export default function LoginPage() {
           router.refresh();
         }
       } else {
-        // Login existing user
         const res = await signIn('credentials', {
           email,
           password,
@@ -89,13 +86,6 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
-  };
-
-  const handleQuickLogin = (demoEmail: string) => {
-    setIsRegistering(false);
-    setEmail(demoEmail);
-    setPassword('password123');
-    setError(null);
   };
 
   if (status === 'loading' || status === 'authenticated') {
@@ -251,5 +241,22 @@ export default function LoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-slate-950 text-slate-200">
+          <div className="flex flex-col items-center gap-4">
+            <div className="h-10 w-10 animate-spin rounded-full border-4 border-violet-500 border-t-transparent"></div>
+            <p className="text-sm text-slate-400 font-mono">Loading authentication portal...</p>
+          </div>
+        </div>
+      }
+    >
+      <LoginForm />
+    </Suspense>
   );
 }
