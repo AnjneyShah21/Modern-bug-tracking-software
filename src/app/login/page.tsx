@@ -22,7 +22,7 @@ function LoginForm() {
 
   useEffect(() => {
     if (status === 'authenticated') {
-      router.push('/');
+      router.push('/kanban');
     }
   }, [status, router]);
 
@@ -64,7 +64,7 @@ function LoginForm() {
           setError('Account created. Please sign in.');
           setIsRegistering(false);
         } else {
-          router.push('/');
+          router.push('/kanban');
           router.refresh();
         }
       } else {
@@ -77,7 +77,7 @@ function LoginForm() {
         if (res?.error) {
           setError(res.error || 'Invalid email or password');
         } else {
-          router.push('/');
+          router.push('/kanban');
           router.refresh();
         }
       }
