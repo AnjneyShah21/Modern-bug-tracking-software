@@ -64,8 +64,7 @@ function LoginForm() {
           setError('Account created. Please sign in.');
           setIsRegistering(false);
         } else {
-          router.push('/kanban');
-          router.refresh();
+          window.location.href = '/kanban';
         }
       } else {
         const res = await signIn('credentials', {
@@ -77,8 +76,7 @@ function LoginForm() {
         if (res?.error) {
           setError(res.error || 'Invalid email or password');
         } else {
-          router.push('/kanban');
-          router.refresh();
+          window.location.href = '/kanban';
         }
       }
     } catch (err: any) {
