@@ -13,7 +13,10 @@ services:
       - key: NEXTAUTH_SECRET
         generateValue: true
       - key: NEXTAUTH_URL
-        sync: false
+        fromService:
+          type: web
+          name: bugzilla-app
+          property: host
       - key: ANTHROPIC_API_KEY
         sync: false
 
